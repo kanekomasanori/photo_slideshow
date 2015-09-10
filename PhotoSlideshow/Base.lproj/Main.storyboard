@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="PhotoSlideshow" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="60k-UZ-KyD" appends="YES" id="TCH-uP-iA3"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <segue destination="Xm4-Cq-sxG" kind="modal" identifier="mainViewToPhotoListViewModal" id="Se0-33-qfy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="60k-UZ-KyD">
+                    <connections>
+                        <action selector="longPressView:" destination="BYZ-38-t0r" id="0yE-Ow-Xhb"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="Q8f-hY-oxF"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="198" y="123"/>
+        </scene>
+        <!--Photo List View Controller-->
+        <scene sceneID="ySI-GU-J3F">
+            <objects>
+                <viewController id="Xm4-Cq-sxG" customClass="PhotoListViewController" customModule="PhotoSlideshow" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qzr-SO-aPB"/>
+                        <viewControllerLayoutGuide type="bottom" id="6ZT-kv-eW4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qO9-qq-fdG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rVt-Md-Jzn">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="prX-F7-tqv"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="stop" id="5JW-Je-LhN">
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="popoverPresentation" popoverAnchorBarButtonItem="5JW-Je-LhN" id="aGw-JE-8Z0">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="QLX-0B-mYA"/>
+                                    <barButtonItem systemItem="add" id="rvw-qK-1hJ">
+                                        <connections>
+                                            <action selector="tapAddButton" destination="Xm4-Cq-sxG" id="KZb-pG-rmC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="a0E-qP-Vb1">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoListTableViewCell" textLabel="hN4-dh-lpv" style="IBUITableViewCellStyleDefault" id="zvP-6p-SwP">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zvP-6p-SwP" id="b3v-0E-r7v">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hN4-dh-lpv">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="IKf-OA-Pqz" id="UVm-6i-mGn"/>
+                                    <outlet property="delegate" destination="IKf-OA-Pqz" id="Ykv-Y6-FZ9"/>
+                                    <outletCollection property="gestureRecognizers" destination="uiz-Yw-sJ0" appends="YES" id="MhH-Xu-xmT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rVt-Md-Jzn" firstAttribute="leading" secondItem="qO9-qq-fdG" secondAttribute="leadingMargin" constant="-16" id="9rp-6U-4S6"/>
+                            <constraint firstItem="a0E-qP-Vb1" firstAttribute="leading" secondItem="qO9-qq-fdG" secondAttribute="leadingMargin" constant="-16" id="CFT-bP-IOT"/>
+                            <constraint firstItem="6ZT-kv-eW4" firstAttribute="top" secondItem="a0E-qP-Vb1" secondAttribute="bottom" id="CRC-vS-Rd7"/>
+                            <constraint firstItem="a0E-qP-Vb1" firstAttribute="top" secondItem="rVt-Md-Jzn" secondAttribute="bottom" id="HUE-GQ-0EW"/>
+                            <constraint firstItem="a0E-qP-Vb1" firstAttribute="top" secondItem="rVt-Md-Jzn" secondAttribute="bottom" id="IAX-el-Nue"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="a0E-qP-Vb1" secondAttribute="trailing" constant="-16" id="Yir-QR-U4f"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rVt-Md-Jzn" secondAttribute="trailing" constant="-16" id="arZ-E6-Vie"/>
+                            <constraint firstItem="rVt-Md-Jzn" firstAttribute="top" secondItem="qO9-qq-fdG" secondAttribute="topMargin" id="oNN-Ud-861"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="photoListTableViewController" destination="IKf-OA-Pqz" id="nWB-FA-VbH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ya-BI-sJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="IKf-OA-Pqz" customClass="PhotoListTableViewController" customModule="PhotoSlideshow" customModuleProvider="target">
+                    <connections>
+                        <outlet property="buttonAddPhoto" destination="rvw-qK-1hJ" id="v57-jP-Q45"/>
+                        <outlet property="photoListTableView" destination="a0E-qP-Vb1" id="uRK-0p-p3V"/>
+                        <outlet property="topToolBar" destination="rVt-Md-Jzn" id="xe9-vc-u6p"/>
+                    </connections>
+                </customObject>
+                <swipeGestureRecognizer cancelsTouchesInView="NO" direction="left" id="uiz-Yw-sJ0">
+                    <connections>
+                        <action selector="swipeLeft" destination="IKf-OA-Pqz" id="XEN-qy-lTF"/>
+                        <outlet property="delegate" destination="IKf-OA-Pqz" id="wMZ-lR-V9F"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="990" y="123"/>
+        </scene>
+    </scenes>
+</document>
