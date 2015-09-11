@@ -13,6 +13,6 @@ class Photo: NSManagedObject {
 
     @NSManaged var order: NSInteger
     @NSManaged var image: NSData
-    @NSManaged var title: String
+    @NSManaged var memo: String
 
 }

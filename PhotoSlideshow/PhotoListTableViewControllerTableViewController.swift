@@ -16,7 +16,7 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
 
     @IBOutlet var photoListTableView: UITableView!
     var managedObjectContext: NSManagedObjectContext!
-    
+
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Photo")
         let primarySortDescriptor = NSSortDescriptor(key: "order", ascending: true)
@@ -30,12 +30,10 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
         frc.delegate = self
         
         return frc
-    }()
+        }()
     
     override func loadView() {
         super.loadView()
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        self.managedObjectContext = appDelegate.managedObjectContext
         buttonEndEdit = UIBarButtonItem(title: "編集終了", style: UIBarButtonItemStyle.Plain, target: self, action: "tapButtonEndEdit:")
         self.fetchPhotoList()
     }
@@ -67,13 +65,13 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
     }
 
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("photoListTableViewCell", forIndexPath: indexPath) as! UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> PhotoListTableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("PhotoListTableViewCell", forIndexPath: indexPath) as! PhotoListTableViewCell
         let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
         
-        cell.imageView?.image = UIImage(data: photo.image)
-        cell.textLabel?.text = photo.title as String
-
+        cell.labelOrder.text = String(photo.order)
+        cell.imageViewPhoto.image = UIImage(data: photo.image)
+        cell.labelMemo.text = photo.memo
         return cell
     }
 
@@ -91,11 +89,18 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
             let photo = fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
             managedObjectContext.deleteObject(photo)
 
+            for i in (indexPath.row+1)..<fetchedResultsController.fetchedObjects!.count {
+                let dataIndexPath: NSIndexPath = NSIndexPath(forRow: i, inSection: 0)
+                var targetPhoto = fetchedResultsController.objectAtIndexPath(dataIndexPath) as! Photo
+                targetPhoto.order = i
+            }
+            
             var error: NSError? = nil
             if managedObjectContext.hasChanges && !managedObjectContext.save(&error) {
                 NSLog("Unresolved error \(error), \(error!.userInfo)")
                 abort()
             }
+            photoListTableView.reloadData()
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -103,7 +108,18 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
     
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+        /*
+        var let fromPhoto = fetchedResultsController.objectAtIndexPath(fromIndexPath) as! Photo
+        var let toPhoto = fetchedResultsController.objectAtIndexPath(toIndexPath) as! Photo
+        let fromOrder: NSInteger = fromPhoto.order
+        fromPhoto.order = toPhoto.order
+        toPhoto.order = fromOrder
+        var error: NSError? = nil
+        if !managedObjectContext.save(&error) {
+            NSLog("Unresolved error \(error), \(error!.userInfo)")
+            abort()
+        }
+*/
     }
 
     /*

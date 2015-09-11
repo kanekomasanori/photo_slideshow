@@ -9,17 +9,20 @@
 import UIKit
 import CoreData
 
-class PhotoListViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoListViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, NSFetchedResultsControllerDelegate {
     @IBOutlet var photoListTableViewController: PhotoListTableViewController!
 
     var persistentStoreCoordinator: NSPersistentStoreCoordinator!
+    var managedObjectContext: NSManagedObjectContext!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         self.persistentStoreCoordinator = appDelegate.persistentStoreCoordinator
+        self.managedObjectContext = appDelegate.managedObjectContext
         
+        photoListTableViewController.managedObjectContext = managedObjectContext
         photoListTableViewController.loadView()
         // Do any additional setup after loading the view.
     }
@@ -46,9 +49,10 @@ class PhotoListViewController: UIViewController, UIImagePickerControllerDelegate
             addingContext.persistentStoreCoordinator = self.persistentStoreCoordinator
 
             var photo: Photo = NSEntityDescription.insertNewObjectForEntityForName("Photo", inManagedObjectContext: addingContext) as! Photo
-            photo.order = 1
+            
+            photo.order = photoListTableViewController.fetchedResultsController.fetchedObjects!.count + 1
             photo.image = data
-            photo.title = ""
+            photo.memo = ""
 
             var error: NSError? = nil
             if addingContext.hasChanges && !addingContext.save(&error) {

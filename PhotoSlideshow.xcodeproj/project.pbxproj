@@ -18,6 +18,7 @@
 		8045AFEE1B88E45100B72892 /* PhotoListTableViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045AFED1B88E45100B72892 /* PhotoListTableViewControllerTableViewController.swift */; };
 		8045AFF01B88E57800B72892 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045AFEF1B88E57800B72892 /* PhotoListViewController.swift */; };
 		809B5C6A1B8BE86500AE0179 /* PhotoSlideshow.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 809B5C681B8BE86500AE0179 /* PhotoSlideshow.xcdatamodeld */; };
+		80CC58311BA254E8008A479B /* PhotoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CC58301BA254E8008A479B /* PhotoListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		8045AFED1B88E45100B72892 /* PhotoListTableViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListTableViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		8045AFEF1B88E57800B72892 /* PhotoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
 		809B5C691B8BE86500AE0179 /* PhotoSlideshow.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoSlideshow.xcdatamodel; sourceTree = "<group>"; };
+		80CC58301BA254E8008A479B /* PhotoListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				8045AFCD1B88DA2000B72892 /* MainViewController.swift */,
 				8045AFEF1B88E57800B72892 /* PhotoListViewController.swift */,
 				8045AFED1B88E45100B72892 /* PhotoListTableViewControllerTableViewController.swift */,
+				80CC58301BA254E8008A479B /* PhotoListTableViewCell.swift */,
 				8045AFCF1B88DA2000B72892 /* Main.storyboard */,
 				8045AFD21B88DA2000B72892 /* Images.xcassets */,
 				8045AFD41B88DA2000B72892 /* LaunchScreen.xib */,
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80CC58311BA254E8008A479B /* PhotoListTableViewCell.swift in Sources */,
 				801594911B8C8F5B00AA608A /* Photo.swift in Sources */,
 				8045AFCE1B88DA2000B72892 /* MainViewController.swift in Sources */,
 				8045AFF01B88E57800B72892 /* PhotoListViewController.swift in Sources */,
