@@ -10,10 +10,6 @@ import UIKit
 import CoreData
 
 class PhotoListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-    @IBOutlet var topToolBar: UIToolbar!
-    @IBOutlet var buttonAddPhoto: UIBarButtonItem!
-    var buttonEndEdit: UIBarButtonItem!
-
     @IBOutlet var photoListTableView: UITableView!
     var managedObjectContext: NSManagedObjectContext!
 
@@ -34,7 +30,6 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
     
     override func loadView() {
         super.loadView()
-        buttonEndEdit = UIBarButtonItem(title: "編集終了", style: UIBarButtonItemStyle.Plain, target: self, action: "tapButtonEndEdit:")
         self.fetchPhotoList()
     }
     
@@ -108,18 +103,24 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
     
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-        /*
-        var let fromPhoto = fetchedResultsController.objectAtIndexPath(fromIndexPath) as! Photo
-        var let toPhoto = fetchedResultsController.objectAtIndexPath(toIndexPath) as! Photo
+        let fromCell = tableView.dequeueReusableCellWithIdentifier("PhotoListTableViewCell", forIndexPath: fromIndexPath) as! PhotoListTableViewCell
+        let toCell = tableView.dequeueReusableCellWithIdentifier("PhotoListTableViewCell", forIndexPath: toIndexPath) as! PhotoListTableViewCell
+
+        var fromPhoto = fetchedResultsController.objectAtIndexPath(fromIndexPath) as! Photo
+        var toPhoto = fetchedResultsController.objectAtIndexPath(toIndexPath) as! Photo
+        
         let fromOrder: NSInteger = fromPhoto.order
         fromPhoto.order = toPhoto.order
         toPhoto.order = fromOrder
+        fromCell.labelOrder.text = String(fromPhoto.order)
+        toCell.labelOrder.text = String(toPhoto.order)
+        
         var error: NSError? = nil
         if !managedObjectContext.save(&error) {
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
         }
-*/
+        photoListTableView.reloadData()
     }
 
     /*
@@ -139,17 +140,6 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
         // Pass the selected object to the new view controller.
     }
     */
-    
-    // MARK: Actions
-    
-    func tapButtonEndEdit(sender: AnyObject?) -> Void {
-        var items = [AnyObject]()
-        items += topToolBar.items!
-        items.removeLast()
-        items += [buttonAddPhoto]
-        topToolBar.items = items
-        photoListTableView.setEditing(false, animated: true)
-    }
     
     // MARK: NSFetchedResultsControllerDelegate
     
@@ -176,14 +166,4 @@ class PhotoListTableViewController: UITableViewController, NSFetchedResultsContr
         photoListTableView.reloadData()
     }
     
-    // MARK: IBAction
-    
-    @IBAction func swipeLeft() -> Void {
-        var items = [AnyObject]()
-        items += topToolBar.items!
-        items.removeLast()
-        items += [buttonEndEdit]
-        topToolBar.items = items
-        photoListTableView.setEditing(true, animated: true)
-    }
 }

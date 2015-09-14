@@ -16,17 +16,67 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F6d-td-HHB">
+                                <rect key="frame" x="140" y="16" width="320" height="568"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JCa-EV-5bC">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5yL-ib-1n0" customClass="PhotoDisplayCollectionViewCell" customModule="PhotoSlideshow" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HN7-nU-xx5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="imageView" destination="HN7-nU-xx5" id="38J-9b-HGq"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="bRo-qx-J0x" id="MYt-p5-nB2"/>
+                                    <outlet property="delegate" destination="bRo-qx-J0x" id="n78-ND-iPH"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="F6d-td-HHB" secondAttribute="bottom" id="KzX-xz-fXm"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="F6d-td-HHB" secondAttribute="bottom" id="YWu-f1-z1h"/>
+                            <constraint firstItem="F6d-td-HHB" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="bWB-m7-ghz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="F6d-td-HHB" secondAttribute="trailing" constant="-16" id="d2E-fb-QAk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="F6d-td-HHB" secondAttribute="trailing" constant="-16" id="dD4-2w-7NI"/>
+                            <constraint firstItem="F6d-td-HHB" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="hgc-9K-YGV"/>
+                            <constraint firstItem="F6d-td-HHB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="nWf-FE-JZr"/>
+                            <constraint firstItem="F6d-td-HHB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="niO-tW-bwq"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="60k-UZ-KyD" appends="YES" id="TCH-uP-iA3"/>
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="photoDisplayCollectionVC" destination="bRo-qx-J0x" id="gXz-xQ-wTy"/>
                         <segue destination="Xm4-Cq-sxG" kind="modal" identifier="mainViewToPhotoListViewModal" id="Se0-33-qfy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="bRo-qx-J0x" customClass="PhotoDisplayCollectionViewController" customModule="PhotoSlideshow" customModuleProvider="target">
+                    <connections>
+                        <outlet property="view" destination="F6d-td-HHB" id="3Tx-EB-Zel"/>
+                    </connections>
+                </customObject>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="60k-UZ-KyD">
                     <connections>
                         <action selector="longPressView:" destination="BYZ-38-t0r" id="0yE-Ow-Xhb"/>
@@ -62,9 +112,14 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="QLX-0B-mYA"/>
-                                    <barButtonItem systemItem="add" id="rvw-qK-1hJ">
+                                    <barButtonItem title="追加" id="rvw-qK-1hJ">
                                         <connections>
                                             <action selector="tapAddButton" destination="Xm4-Cq-sxG" id="KZb-pG-rmC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="編集" id="I1Y-ak-KOi">
+                                        <connections>
+                                            <action selector="tapButtonEdit:" destination="Xm4-Cq-sxG" id="sgs-Sz-L8A"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -106,7 +161,6 @@
                                 <connections>
                                     <outlet property="dataSource" destination="IKf-OA-Pqz" id="UVm-6i-mGn"/>
                                     <outlet property="delegate" destination="IKf-OA-Pqz" id="Ykv-Y6-FZ9"/>
-                                    <outletCollection property="gestureRecognizers" destination="uiz-Yw-sJ0" appends="YES" id="MhH-Xu-xmT"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -123,23 +177,16 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="photoListTableViewController" destination="IKf-OA-Pqz" id="nWB-FA-VbH"/>
+                        <outlet property="buttonEdit" destination="I1Y-ak-KOi" id="07C-J8-JiJ"/>
+                        <outlet property="photoListTableVC" destination="IKf-OA-Pqz" id="BvW-t4-IXb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ya-BI-sJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="IKf-OA-Pqz" customClass="PhotoListTableViewController" customModule="PhotoSlideshow" customModuleProvider="target">
                     <connections>
-                        <outlet property="buttonAddPhoto" destination="rvw-qK-1hJ" id="v57-jP-Q45"/>
                         <outlet property="photoListTableView" destination="a0E-qP-Vb1" id="uRK-0p-p3V"/>
-                        <outlet property="topToolBar" destination="rVt-Md-Jzn" id="xe9-vc-u6p"/>
                     </connections>
                 </customObject>
-                <swipeGestureRecognizer cancelsTouchesInView="NO" direction="left" id="uiz-Yw-sJ0">
-                    <connections>
-                        <action selector="swipeLeft" destination="IKf-OA-Pqz" id="XEN-qy-lTF"/>
-                        <outlet property="delegate" destination="IKf-OA-Pqz" id="wMZ-lR-V9F"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="990" y="123"/>
         </scene>

@@ -8,11 +8,20 @@
 
 import UIKit
 import Photos
+import CoreData
 
 class MainViewController: UIViewController {
+    @IBOutlet var photoDisplayCollectionVC: PhotoDisplayCollectionViewController!
+    
+    var persistentStoreCoordinator: NSPersistentStoreCoordinator!
+    var managedObjectContext: NSManagedObjectContext!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        self.persistentStoreCoordinator = appDelegate.persistentStoreCoordinator
+        self.managedObjectContext = appDelegate.managedObjectContext
         
         var authorizationStatus: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         switch authorizationStatus {
@@ -29,6 +38,7 @@ class MainViewController: UIViewController {
         default:
             break
         }
+        photoDisplayCollectionVC.managedObjectContext = managedObjectContext
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,21 +46,9 @@ class MainViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func showPhotoListView() -> Void {
-        self.performSegueWithIdentifier("mainViewToPhotoListViewModal", sender: self)
-    }
-    
-    override func shouldPerformSegueWithIdentifier(identifier: String?, sender: AnyObject?) -> Bool {
-        if (identifier == "mainViewToPhotoListViewModal") {
-            NSLog("hogehogehogehoge")
-        }
-        NSLog("%@", identifier!)
-        return true
-    }
-    
     // MARK: IBAction
     @IBAction func longPressView(sender : AnyObject) {
-        showPhotoListView()
+        self.performSegueWithIdentifier("mainViewToPhotoListViewModal", sender: sender)
     }
 }
 
